@@ -1,0 +1,520 @@
+{
+  "configurablePCs": [
+    {
+      "id": "gaming_beast_pro",
+      "name": "Gaming Beast Pro",
+      "description": "Configuration gaming ultime pour les jeux AAA en 4K",
+      "image": "https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=600",
+      "category": "gaming",
+      "basePrice": 2499.00,
+      "defaultCpu": {
+        "id": "cpu_i9_14900k",
+        "name": "Intel Core i9-14900K",
+        "type": "cpu",
+        "price": 589.00,
+        "image": "https://m.media-amazon.com/images/I/61tmlMZ9HsL._AC_SX679_.jpg",
+        "description": "24 coeurs, 32 threads, 6.0 GHz boost",
+        "specs": {"cores": 24, "threads": 32, "boost": "6.0 GHz"}
+      },
+      "defaultGpu": {
+        "id": "gpu_rtx4090",
+        "name": "NVIDIA RTX 4090",
+        "type": "gpu",
+        "price": 1599.00,
+        "image": "https://m.media-amazon.com/images/I/81UNzt0SXBL._AC_SX679_.jpg",
+        "description": "24GB GDDR6X, Ray Tracing",
+        "specs": {"vram": "24GB", "boost": "2.52 GHz"}
+      },
+      "defaultRam": {
+        "id": "ram_64gb_ddr5",
+        "name": "Corsair Vengeance RGB 64GB DDR5",
+        "type": "ram",
+        "price": 299.00,
+        "image": "https://m.media-amazon.com/images/I/71Gi9iZ7YrL._AC_SX679_.jpg",
+        "description": "64GB (2x32GB) 6000MHz RGB",
+        "specs": {"capacity": "64GB", "speed": "6000MHz"}
+      },
+      "defaultStorage": {
+        "id": "ssd_2tb_gen4",
+        "name": "Samsung 990 Pro 2TB NVMe",
+        "type": "storage",
+        "price": 189.00,
+        "image": "https://m.media-amazon.com/images/I/81ehvQN8QBL._AC_SX679_.jpg",
+        "description": "2TB PCIe 4.0, 7450 MB/s",
+        "specs": {"capacity": "2TB", "speed": "7450 MB/s"}
+      },
+      "defaultMotherboard": {
+        "id": "mb_z790_asus",
+        "name": "ASUS ROG Maximus Z790 Hero",
+        "type": "motherboard",
+        "price": 629.00,
+        "image": "https://m.media-amazon.com/images/I/81crbfzNh5L._AC_SX679_.jpg",
+        "description": "LGA1700, DDR5, PCIe 5.0",
+        "specs": {"socket": "LGA1700", "chipset": "Z790"}
+      },
+      "defaultPsu": {
+        "id": "psu_1000w_plat",
+        "name": "Corsair RM1000x 1000W",
+        "type": "psu",
+        "price": 199.00,
+        "image": "https://m.media-amazon.com/images/I/71Vg0FkWLTL._AC_SX679_.jpg",
+        "description": "1000W 80+ Platinum Modulaire",
+        "specs": {"wattage": "1000W", "efficiency": "80+ Platinum"}
+      },
+      "defaultCase": {
+        "id": "case_lian_li",
+        "name": "Lian Li O11 Dynamic EVO",
+        "type": "case",
+        "price": 189.00,
+        "image": "https://m.media-amazon.com/images/I/71ePuKBKEXL._AC_SX679_.jpg",
+        "description": "Mid-tower ATX, verre trempé",
+        "specs": {"type": "Mid-Tower", "color": "Black"}
+      },
+      "defaultCooling": {
+        "id": "cool_aio_360",
+        "name": "NZXT Kraken Z73 RGB 360mm",
+        "type": "cooling",
+        "price": 279.00,
+        "image": "https://m.media-amazon.com/images/I/71+aKDNX3bL._AC_SX679_.jpg",
+        "description": "AIO 360mm LCD display",
+        "specs": {"size": "360mm", "type": "AIO"}
+      },
+      "cpuOptions": [
+        {
+          "id": "cpu_i9_14900k",
+          "name": "Intel Core i9-14900K",
+          "type": "cpu",
+          "price": 589.00,
+          "image": "https://m.media-amazon.com/images/I/61tmlMZ9HsL._AC_SX679_.jpg",
+          "description": "24 coeurs, 32 threads",
+          "specs": {}
+        },
+        {
+          "id": "cpu_i7_14700k",
+          "name": "Intel Core i7-14700K",
+          "type": "cpu",
+          "price": 419.00,
+          "image": "https://m.media-amazon.com/images/I/61W3cOlD5DL._AC_SX679_.jpg",
+          "description": "20 coeurs, 28 threads",
+          "specs": {}
+        },
+        {
+          "id": "cpu_ryzen9_7950x",
+          "name": "AMD Ryzen 9 7950X",
+          "type": "cpu",
+          "price": 549.00,
+          "image": "https://m.media-amazon.com/images/I/61vGQNUFnyL._AC_SX679_.jpg",
+          "description": "16 coeurs, 32 threads",
+          "specs": {}
+        }
+      ],
+      "gpuOptions": [
+        {
+          "id": "gpu_rtx4090",
+          "name": "NVIDIA RTX 4090",
+          "type": "gpu",
+          "price": 1599.00,
+          "image": "https://m.media-amazon.com/images/I/81UNzt0SXBL._AC_SX679_.jpg",
+          "description": "24GB GDDR6X",
+          "specs": {}
+        },
+        {
+          "id": "gpu_rtx4080",
+          "name": "NVIDIA RTX 4080",
+          "type": "gpu",
+          "price": 1199.00,
+          "image": "https://m.media-amazon.com/images/I/81bhWgRNHsL._AC_SX679_.jpg",
+          "description": "16GB GDDR6X",
+          "specs": {}
+        },
+        {
+          "id": "gpu_rx7900xtx",
+          "name": "AMD Radeon RX 7900 XTX",
+          "type": "gpu",
+          "price": 999.00,
+          "image": "https://m.media-amazon.com/images/I/71kyRNN3GlL._AC_SX679_.jpg",
+          "description": "24GB GDDR6",
+          "specs": {}
+        }
+      ],
+      "ramOptions": [
+        {
+          "id": "ram_64gb_ddr5",
+          "name": "Corsair Vengeance RGB 64GB DDR5",
+          "type": "ram",
+          "price": 299.00,
+          "image": "https://m.media-amazon.com/images/I/71Gi9iZ7YrL._AC_SX679_.jpg",
+          "description": "64GB 6000MHz",
+          "specs": {}
+        },
+        {
+          "id": "ram_32gb_ddr5",
+          "name": "G.Skill Trident Z5 32GB DDR5",
+          "type": "ram",
+          "price": 159.00,
+          "image": "https://m.media-amazon.com/images/I/71qQ7K7HWHL._AC_SX679_.jpg",
+          "description": "32GB 6400MHz",
+          "specs": {}
+        }
+      ],
+      "storageOptions": [
+        {
+          "id": "ssd_2tb_gen4",
+          "name": "Samsung 990 Pro 2TB",
+          "type": "storage",
+          "price": 189.00,
+          "image": "https://m.media-amazon.com/images/I/81ehvQN8QBL._AC_SX679_.jpg",
+          "description": "2TB PCIe 4.0",
+          "specs": {}
+        },
+        {
+          "id": "ssd_1tb_gen4",
+          "name": "WD Black SN850X 1TB",
+          "type": "storage",
+          "price": 119.00,
+          "image": "https://m.media-amazon.com/images/I/81MT+yS6YxL._AC_SX679_.jpg",
+          "description": "1TB PCIe 4.0",
+          "specs": {}
+        }
+      ],
+      "motherboardOptions": [
+        {
+          "id": "mb_z790_asus",
+          "name": "ASUS ROG Maximus Z790",
+          "type": "motherboard",
+          "price": 629.00,
+          "image": "https://m.media-amazon.com/images/I/81crbfzNh5L._AC_SX679_.jpg",
+          "description": "Z790 chipset",
+          "specs": {}
+        }
+      ],
+      "psuOptions": [
+        {
+          "id": "psu_1000w_plat",
+          "name": "Corsair RM1000x 1000W",
+          "type": "psu",
+          "price": 199.00,
+          "image": "https://m.media-amazon.com/images/I/71Vg0FkWLTL._AC_SX679_.jpg",
+          "description": "1000W Platinum",
+          "specs": {}
+        }
+      ],
+      "caseOptions": [
+        {
+          "id": "case_lian_li",
+          "name": "Lian Li O11 Dynamic",
+          "type": "case",
+          "price": 189.00,
+          "image": "https://m.media-amazon.com/images/I/71ePuKBKEXL._AC_SX679_.jpg",
+          "description": "Mid-tower ATX",
+          "specs": {}
+        }
+      ],
+      "coolingOptions": [
+        {
+          "id": "cool_aio_360",
+          "name": "NZXT Kraken Z73 360mm",
+          "type": "cooling",
+          "price": 279.00,
+          "image": "https://m.media-amazon.com/images/I/71+aKDNX3bL._AC_SX679_.jpg",
+          "description": "AIO 360mm",
+          "specs": {}
+        }
+      ]
+    },
+    {
+      "id": "gaming_starter",
+      "name": "Gaming Starter",
+      "description": "Configuration gaming entrée de gamme 1080p/1440p",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600",
+      "category": "gaming",
+      "basePrice": 1299.00,
+      "defaultCpu": {
+        "id": "cpu_i5_14600k",
+        "name": "Intel Core i5-14600K",
+        "type": "cpu",
+        "price": 319.00,
+        "image": "https://m.media-amazon.com/images/I/61iMYHX7LgL._AC_SX679_.jpg",
+        "description": "14 coeurs, 20 threads",
+        "specs": {}
+      },
+      "defaultGpu": {
+        "id": "gpu_rtx4060ti",
+        "name": "NVIDIA RTX 4060 Ti",
+        "type": "gpu",
+        "price": 449.00,
+        "image": "https://m.media-amazon.com/images/I/71LX3kGYdOL._AC_SX679_.jpg",
+        "description": "8GB GDDR6",
+        "specs": {}
+      },
+      "defaultRam": {
+        "id": "ram_16gb_ddr5",
+        "name": "Corsair Vengeance 16GB DDR5",
+        "type": "ram",
+        "price": 89.00,
+        "image": "https://m.media-amazon.com/images/I/61WzI1OvOhL._AC_SX679_.jpg",
+        "description": "16GB 5600MHz",
+        "specs": {}
+      },
+      "defaultStorage": {
+        "id": "ssd_1tb_gen3",
+        "name": "Crucial P3 Plus 1TB",
+        "type": "storage",
+        "price": 79.00,
+        "image": "https://m.media-amazon.com/images/I/71hVXrjoRnL._AC_SX679_.jpg",
+        "description": "1TB PCIe 3.0",
+        "specs": {}
+      },
+      "defaultMotherboard": {
+        "id": "mb_b760_msi",
+        "name": "MSI PRO B760-P",
+        "type": "motherboard",
+        "price": 159.00,
+        "image": "https://m.media-amazon.com/images/I/71kIqtR+IEL._AC_SX679_.jpg",
+        "description": "B760 chipset",
+        "specs": {}
+      },
+      "defaultPsu": {
+        "id": "psu_650w_bronze",
+        "name": "EVGA 650 BQ 650W",
+        "type": "psu",
+        "price": 69.00,
+        "image": "https://m.media-amazon.com/images/I/61vOT8gPvDL._AC_SX679_.jpg",
+        "description": "650W 80+ Bronze",
+        "specs": {}
+      },
+      "defaultCase": {
+        "id": "case_nzxt_h510",
+        "name": "NZXT H510",
+        "type": "case",
+        "price": 89.00,
+        "image": "https://m.media-amazon.com/images/I/71gGfcujSvL._AC_SX679_.jpg",
+        "description": "Mid-tower compact",
+        "specs": {}
+      },
+      "defaultCooling": {
+        "id": "cool_tower_120",
+        "name": "Cooler Master Hyper 212",
+        "type": "cooling",
+        "price": 49.00,
+        "image": "https://m.media-amazon.com/images/I/71bRGDP+P6L._AC_SX679_.jpg",
+        "description": "Tour 120mm",
+        "specs": {}
+      },
+      "cpuOptions": [
+        {
+          "id": "cpu_i5_14600k",
+          "name": "Intel Core i5-14600K",
+          "type": "cpu",
+          "price": 319.00,
+          "image": "https://m.media-amazon.com/images/I/61iMYHX7LgL._AC_SX679_.jpg",
+          "description": "14 coeurs, 20 threads",
+          "specs": {}
+        },
+        {
+          "id": "cpu_ryzen5_7600x",
+          "name": "AMD Ryzen 5 7600X",
+          "type": "cpu",
+          "price": 249.00,
+          "image": "https://m.media-amazon.com/images/I/61vGQNUFnyL._AC_SX679_.jpg",
+          "description": "6 coeurs, 12 threads",
+          "specs": {}
+        }
+      ],
+      "gpuOptions": [
+        {
+          "id": "gpu_rtx4060ti",
+          "name": "NVIDIA RTX 4060 Ti",
+          "type": "gpu",
+          "price": 449.00,
+          "image": "https://m.media-amazon.com/images/I/71LX3kGYdOL._AC_SX679_.jpg",
+          "description": "8GB GDDR6",
+          "specs": {}
+        },
+        {
+          "id": "gpu_rx7600",
+          "name": "AMD Radeon RX 7600",
+          "type": "gpu",
+          "price": 269.00,
+          "image": "https://m.media-amazon.com/images/I/81oKexe6T-L._AC_SX679_.jpg",
+          "description": "8GB GDDR6",
+          "specs": {}
+        }
+      ],
+      "ramOptions": [
+        {
+          "id": "ram_16gb_ddr5",
+          "name": "Corsair Vengeance 16GB DDR5",
+          "type": "ram",
+          "price": 89.00,
+          "image": "https://m.media-amazon.com/images/I/61WzI1OvOhL._AC_SX679_.jpg",
+          "description": "16GB 5600MHz",
+          "specs": {}
+        },
+        {
+          "id": "ram_32gb_ddr5_budget",
+          "name": "Kingston Fury 32GB DDR5",
+          "type": "ram",
+          "price": 139.00,
+          "image": "https://m.media-amazon.com/images/I/61xXFLHrTBL._AC_SX679_.jpg",
+          "description": "32GB 5200MHz",
+          "specs": {}
+        }
+      ],
+      "storageOptions": [
+        {
+          "id": "ssd_1tb_gen3",
+          "name": "Crucial P3 Plus 1TB",
+          "type": "storage",
+          "price": 79.00,
+          "image": "https://m.media-amazon.com/images/I/71hVXrjoRnL._AC_SX679_.jpg",
+          "description": "1TB PCIe 3.0",
+          "specs": {}
+        },
+        {
+          "id": "ssd_500gb_gen3",
+          "name": "Kingston NV2 500GB",
+          "type": "storage",
+          "price": 49.00,
+          "image": "https://m.media-amazon.com/images/I/81D33hHDMTL._AC_SX679_.jpg",
+          "description": "500GB PCIe 3.0",
+          "specs": {}
+        }
+      ],
+      "motherboardOptions": [
+        {
+          "id": "mb_b760_msi",
+          "name": "MSI PRO B760-P",
+          "type": "motherboard",
+          "price": 159.00,
+          "image": "https://m.media-amazon.com/images/I/71kIqtR+IEL._AC_SX679_.jpg",
+          "description": "B760 chipset",
+          "specs": {}
+        }
+      ],
+      "psuOptions": [
+        {
+          "id": "psu_650w_bronze",
+          "name": "EVGA 650 BQ 650W",
+          "type": "psu",
+          "price": 69.00,
+          "image": "https://m.media-amazon.com/images/I/61vOT8gPvDL._AC_SX679_.jpg",
+          "description": "650W 80+ Bronze",
+          "specs": {}
+        }
+      ],
+      "caseOptions": [
+        {
+          "id": "case_nzxt_h510",
+          "name": "NZXT H510",
+          "type": "case",
+          "price": 89.00,
+          "image": "https://m.media-amazon.com/images/I/71gGfcujSvL._AC_SX679_.jpg",
+          "description": "Mid-tower",
+          "specs": {}
+        }
+      ],
+      "coolingOptions": [
+        {
+          "id": "cool_tower_120",
+          "name": "Cooler Master Hyper 212",
+          "type": "cooling",
+          "price": 49.00,
+          "image": "https://m.media-amazon.com/images/I/71bRGDP+P6L._AC_SX679_.jpg",
+          "description": "Tour 120mm",
+          "specs": {}
+        }
+      ]
+    },
+    {
+      "id": "laptop_workstation",
+      "name": "Workstation Pro Laptop",
+      "description": "Laptop puissant pour création de contenu et développement",
+      "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600",
+      "category": "laptop",
+      "basePrice": 1899.00,
+      "defaultCpu": {
+        "id": "laptop_cpu_i7",
+        "name": "Intel Core i7-13700H",
+        "type": "cpu",
+        "price": 0.00,
+        "image": "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400",
+        "description": "14 coeurs mobile",
+        "specs": {}
+      },
+      "defaultGpu": {
+        "id": "laptop_gpu_rtx4060",
+        "name": "NVIDIA RTX 4060 Laptop",
+        "type": "gpu",
+        "price": 0.00,
+        "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400",
+        "description": "8GB GDDR6",
+        "specs": {}
+      },
+      "defaultRam": {
+        "id": "laptop_ram_32gb",
+        "name": "32GB DDR5 RAM",
+        "type": "ram",
+        "price": 0.00,
+        "image": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400",
+        "description": "32GB intégrée",
+        "specs": {}
+      },
+      "defaultStorage": {
+        "id": "laptop_ssd_1tb",
+        "name": "1TB NVMe SSD",
+        "type": "storage",
+        "price": 0.00,
+        "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400",
+        "description": "1TB PCIe 4.0",
+        "specs": {}
+      },
+      "cpuOptions": [],
+      "gpuOptions": [],
+      "ramOptions": [
+        {
+          "id": "laptop_ram_32gb",
+          "name": "32GB DDR5",
+          "type": "ram",
+          "price": 0.00,
+          "image": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400",
+          "description": "32GB",
+          "specs": {}
+        },
+        {
+          "id": "laptop_ram_64gb",
+          "name": "64GB DDR5 (Upgrade)",
+          "type": "ram",
+          "price": 200.00,
+          "image": "https://images.unsplash.com/photo-1562408590-e32931084e23?w=400",
+          "description": "64GB upgrade",
+          "specs": {}
+        }
+      ],
+      "storageOptions": [
+        {
+          "id": "laptop_ssd_1tb",
+          "name": "1TB NVMe",
+          "type": "storage",
+          "price": 0.00,
+          "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400",
+          "description": "1TB",
+          "specs": {}
+        },
+        {
+          "id": "laptop_ssd_2tb",
+          "name": "2TB NVMe (Upgrade)",
+          "type": "storage",
+          "price": 150.00,
+          "image": "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400",
+          "description": "2TB upgrade",
+          "specs": {}
+        }
+      ],
+      "motherboardOptions": [],
+      "psuOptions": [],
+      "caseOptions": [],
+      "coolingOptions": []
+    }
+  ]
+}
