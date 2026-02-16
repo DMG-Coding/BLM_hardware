@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/cart_item.dart';
+import '../models/component.dart';
 import '../utils/constants.dart';
 import '../services/storage_service.dart';
+import '../widgets/pc_assembly_3d_viewer.dart';
+import '../services/pc_assembly_service.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -51,8 +54,33 @@ class _CartScreenState extends State<CartScreen> {
     _loadCart();
   }
 
+  /// Ouvrir la vue du PC assemblé
+  void _openPCAssembly3D() {
+    final components = PCAssemblyService.getPCComponents(_cartItems);
+    
+    if (components.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Aucun composant PC dans le panier'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PCAssembly3DViewer(components: components),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final canShow3D = PCAssemblyService.canShowPC3D(_cartItems);
+    final assemblyMessage = PCAssemblyService.getAssemblyMessage(_cartItems);
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Panier (${_cartItems.length})'),
@@ -99,10 +127,90 @@ class _CartScreenState extends State<CartScreen> {
                 ? _buildEmptyCart()
                 : Column(
                     children: [
+                      if (canShow3D) _buildPC3DButton(assemblyMessage),
                       Expanded(child: _buildCartList()),
                       _buildCheckoutSection(),
                     ],
                   ),
+      ),
+    );
+  }
+
+  Widget _buildPC3DButton(String message) {
+    final hasCompletePC = PCAssemblyService.hasCompletePC(_cartItems);
+    final componentCount = PCAssemblyService.getPCComponents(_cartItems).length;
+    
+    return Container(
+      margin: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: hasCompletePC
+              ? [Color(0xFF4CAF50), Color(0xFF45a049)]
+              : [Color(0xFF2196F3), Color(0xFF1976D2)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: (hasCompletePC ? Colors.green : Colors.blue).withOpacity(0.3),
+            blurRadius: 15,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: _openPCAssembly3D,
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.visibility,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        hasCompletePC ? 'PC Complet !' : 'Prévisualisation PC',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '$componentCount composant(s) • $message',
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -126,6 +234,15 @@ class _CartScreenState extends State<CartScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          SizedBox(height: 12),
+          Text(
+            'Ajoutez des composants PC\npour voir la prévisualisation',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[500],
+            ),
+          ),
         ],
       ),
     );
@@ -143,11 +260,16 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _buildCartItemCard(CartItem item, int index) {
+    final isComponent = item.type == CartItemType.component;
+    
     return Card(
       margin: EdgeInsets.only(bottom: 12),
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
+        side: isComponent 
+            ? BorderSide(color: Colors.blue[300]!, width: 2)
+            : BorderSide.none,
       ),
       elevation: 4,
       child: Padding(
@@ -157,7 +279,6 @@ class _CartScreenState extends State<CartScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
@@ -176,16 +297,17 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 SizedBox(width: 12),
-                
-                // Infos
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Type badge
                       Row(
                         children: [
                           _buildTypeBadge(item.type),
+                          if (isComponent) ...[
+                            SizedBox(width: 8),
+                            Icon(Icons.visibility, color: Colors.blue[700], size: 16),
+                          ],
                           Spacer(),
                           IconButton(
                             icon: Icon(Icons.delete, color: Colors.red, size: 20),
@@ -196,8 +318,6 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                       SizedBox(height: 4),
-                      
-                      // Nom
                       Text(
                         item.getName(),
                         style: TextStyle(
@@ -209,8 +329,6 @@ class _CartScreenState extends State<CartScreen> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 4),
-                      
-                      // Catégorie
                       Text(
                         item.getCategory(),
                         style: TextStyle(
@@ -219,72 +337,19 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       SizedBox(height: 8),
-                      
-                      // Prix
-                      Row(
-                        children: [
-                          Text(
-                            '\$${item.getUnitPrice().toStringAsFixed(2)}',
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                          if (item.quantity > 1) ...[
-                            Text(
-                              ' × ${item.quantity}',
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ],
+                      Text(
+                        '\$${item.getUnitPrice().toStringAsFixed(2)}',
+                        style: TextStyle(
+                          color: Colors.blue[700],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            
-            // Configuration pour PC configurés
-            if (item.type == CartItemType.configurablePC && item.pcConfig != null) ...[
-              SizedBox(height: 12),
-              Container(
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.settings, size: 16, color: AppColors.cyan),
-                        SizedBox(width: 6),
-                        Text(
-                          'Configuration personnalisée',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    _buildConfigLine('CPU', item.pcConfig!.selectedCpu?.name),
-                    _buildConfigLine('GPU', item.pcConfig!.selectedGpu?.name),
-                    _buildConfigLine('RAM', item.pcConfig!.selectedRam?.name),
-                    _buildConfigLine('Stockage', item.pcConfig!.selectedStorage?.name),
-                  ],
-                ),
-              ),
-            ],
-            
-            // Contrôles de quantité
             SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -292,22 +357,24 @@ class _CartScreenState extends State<CartScreen> {
                 Text(
                   'Total: \$${item.getTotalPrice().toStringAsFixed(2)}',
                   style: TextStyle(
-                    color: Colors.black87,
+                    color: Colors.green[700],
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 Row(
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.remove_circle_outline),
-                      color: Colors.blue[700],
-                      onPressed: item.quantity > 1
-                          ? () => _updateQuantity(index, item.quantity - 1)
-                          : null,
+                    _buildQuantityButton(
+                      icon: Icons.remove,
+                      onPressed: () {
+                        if (item.quantity > 1) {
+                          _updateQuantity(index, item.quantity - 1);
+                        }
+                      },
                     ),
+                    SizedBox(width: 8),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: Colors.blue[50],
                         borderRadius: BorderRadius.circular(8),
@@ -315,15 +382,18 @@ class _CartScreenState extends State<CartScreen> {
                       child: Text(
                         '${item.quantity}',
                         style: TextStyle(
+                          color: Colors.blue[700],
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.add_circle_outline),
-                      color: Colors.blue[700],
-                      onPressed: () => _updateQuantity(index, item.quantity + 1),
+                    SizedBox(width: 8),
+                    _buildQuantityButton(
+                      icon: Icons.add,
+                      onPressed: () {
+                        _updateQuantity(index, item.quantity + 1);
+                      },
                     ),
                   ],
                 ),
@@ -340,17 +410,17 @@ class _CartScreenState extends State<CartScreen> {
     Color color;
     
     switch (type) {
-      case CartItemType.configurablePC:
-        label = 'PC Config';
-        color = AppColors.cyan;
-        break;
-      case CartItemType.component:
-        label = 'Composant';
-        color = Colors.orange;
-        break;
       case CartItemType.simpleProduct:
         label = 'Produit';
-        color = Colors.green;
+        color = Colors.blue;
+        break;
+      case CartItemType.configurablePC:
+        label = 'PC Config';
+        color = Colors.purple;
+        break;
+      case CartItemType.component:
+        label = 'Composant PC';
+        color = Colors.orange;
         break;
     }
     
@@ -358,7 +428,7 @@ class _CartScreenState extends State<CartScreen> {
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color, width: 1),
       ),
       child: Text(
@@ -372,33 +442,21 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _buildConfigLine(String label, String? value) {
-    if (value == null) return SizedBox.shrink();
-    
-    return Padding(
-      padding: EdgeInsets.only(bottom: 4),
-      child: Row(
-        children: [
-          Text(
-            '$label: ',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 11,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
+  Widget _buildQuantityButton({required IconData icon, required VoidCallback onPressed}) {
+    return Container(
+      width: 32,
+      height: 32,
+      decoration: BoxDecoration(
+        color: Colors.blue[700],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: onPressed,
+          child: Icon(icon, color: Colors.white, size: 18),
+        ),
       ),
     );
   }
@@ -407,53 +465,44 @@ class _CartScreenState extends State<CartScreen> {
     return Container(
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.darkCard,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black26,
-            blurRadius: 15,
-            spreadRadius: 5,
+            color: Colors.black12,
+            blurRadius: 10,
+            spreadRadius: 2,
           ),
         ],
       ),
       child: SafeArea(
         child: Column(
           children: [
-            // Résumé
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Sous-total (${_cartItems.length} articles)',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      '\$${_total.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        color: AppColors.cyan,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Total',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                Text(
+                  '\$${_total.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[700],
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 16),
-            
-            // Bouton de paiement
             SizedBox(
               width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
+              height: 56,
+              child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[700],
                   shape: RoundedRectangleBorder(
@@ -461,60 +510,42 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   elevation: 8,
                 ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (c) => AlertDialog(
-                      title: Text('Confirmer l\'achat'),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Articles: ${_cartItems.length}'),
-                          SizedBox(height: 8),
-                          Text(
-                            'Total: \$${_total.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                      actions: [
-                        TextButton(
-                          child: Text('Annuler'),
-                          onPressed: () => Navigator.pop(c),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                          ),
-                          child: Text('Confirmer'),
-                          onPressed: () {
-                            Navigator.pop(c);
-                            _clearCart();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Commande confirmée! Merci!'),
-                                backgroundColor: Colors.green,
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                child: Text(
-                  'ACHETER MAINTENANT',
+                icon: Icon(Icons.shopping_bag, size: 24),
+                label: Text(
+                  'COMMANDER',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Row(
+                        children: [
+                          Icon(Icons.check_circle, color: Colors.green, size: 32),
+                          SizedBox(width: 12),
+                          Text('Commande confirmée!'),
+                        ],
+                      ),
+                      content: Text(
+                        'Merci pour votre commande de \$${_total.toStringAsFixed(2)}',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () {
+                            _clearCart();
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ],
