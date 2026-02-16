@@ -1,25 +1,25 @@
 import 'component.dart';
 
-// Modèle pour une configuration PC complète
+// configuration PC complète
 class PCConfig {
   final String id;
   final String name;
   final String description;
   final String image;
-  final String category; // 'laptop', 'desktop', 'gaming'
+  final String category; 
   final double basePrice;
   
-  // Configuration de base (composants par défaut)
+  // konfigirasyon bazik yo le pral achte an
   final Component defaultCpu;
   final Component defaultGpu;
   final Component defaultRam;
   final Component defaultStorage;
-  final Component? defaultMotherboard; // Optionnel pour laptops
-  final Component? defaultPsu; // Optionnel pour laptops
-  final Component? defaultCase; // Optionnel pour laptops
-  final Component? defaultCooling; // Optionnel
+  final Component? defaultMotherboard; 
+  final Component? defaultPsu; 
+  final Component? defaultCase; 
+  final Component? defaultCooling; 
   
-  // Options de composants disponibles pour personnalisation
+  //  personnalisation
   final List<Component> cpuOptions;
   final List<Component> gpuOptions;
   final List<Component> ramOptions;
@@ -29,7 +29,7 @@ class PCConfig {
   final List<Component> caseOptions;
   final List<Component> coolingOptions;
   
-  // Composants actuellement sélectionnés (pour l'état)
+  
   Component? selectedCpu;
   Component? selectedGpu;
   Component? selectedRam;
@@ -86,7 +86,7 @@ class PCConfig {
     );
   }
 
-  // Calculer le prix total avec les composants sélectionnés
+  
   double getTotalPrice() {
     double total = basePrice;
     
@@ -119,7 +119,7 @@ class PCConfig {
     return total;
   }
 
-  // Obtenir la configuration complète sous forme de texte
+  // fh an sot jwenn konfigirasyon an sou fom de teks
   String getConfigSummary() {
     final buffer = StringBuffer();
     
@@ -151,7 +151,7 @@ class PCConfig {
     return buffer.toString();
   }
 
-  // Conversion depuis JSON
+  // ki fh kopi a depi fichye JSON nn
   factory PCConfig.fromJson(Map<String, dynamic> json) {
     return PCConfig(
       id: json['id']?.toString() ?? '',
@@ -213,7 +213,7 @@ class PCConfig {
     );
   }
 
-  // Conversion vers JSON
+  // ki fh kopi a bay JSON
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -247,7 +247,7 @@ class PCConfig {
         'selectedCooling': selectedCooling?.toJson(),
       };
 
-  // Copier avec modifications
+  // kopyel ak modifikasyon yo
   PCConfig copyWith({
     String? id,
     String? name,

@@ -13,7 +13,7 @@ class Product {
     required this.category,
   });
 
-  // Conversion vers JSON pour storage
+  // konvesyon depi JSON le nap itilize storage la
   Map<String, dynamic> toJson() => {
         'name': name,
         'image': image,
@@ -22,7 +22,7 @@ class Product {
         'category': category,
       };
 
-  // Création depuis JSON
+  // kreyasyon depi JSON
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         name: json['name'],
         image: json['image'],

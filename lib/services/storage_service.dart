@@ -8,27 +8,27 @@ import '../models/component.dart';
 class CartService {
   static const String _cartKey = 'cart_items';
 
-  // ========== AJOUTER AU PANIER ==========
   
-  /// Ajouter un produit simple au panier
+  
+  /// pati pou ajoute yon pwodui senp
   static Future<void> addProduct(Product product, {int quantity = 1}) async {
     final cartItem = CartItem.fromProduct(product, quantity: quantity);
     await _addCartItem(cartItem);
   }
 
-  /// Ajouter un PC configuré au panier
+  /// ajoute yon PC konfigire
   static Future<void> addPCConfig(PCConfig pcConfig, {int quantity = 1}) async {
     final cartItem = CartItem.fromPCConfig(pcConfig, quantity: quantity);
     await _addCartItem(cartItem);
   }
 
-  /// Ajouter un composant individuel au panier
+  /// Ajoute yon konpozan PC nn panye a
   static Future<void> addComponent(Component component, {int quantity = 1}) async {
     final cartItem = CartItem.fromComponent(component, quantity: quantity);
     await _addCartItem(cartItem);
   }
 
-  /// Méthode privée pour ajouter un CartItem
+  
   static Future<void> _addCartItem(CartItem newItem) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> cart = prefs.getStringList(_cartKey) ?? [];
@@ -39,7 +39,7 @@ class CartService {
     
     for (int i = 0; i < cartItems.length; i++) {
       if (cartItems[i].isSameItem(newItem)) {
-        // Augmenter la quantité de l'item existant
+        // Augmente kanitite a an fonksyon de pri konpozan
         cartItems[i] = cartItems[i].copyWith(
           quantity: cartItems[i].quantity + newItem.quantity,
         );
@@ -48,26 +48,26 @@ class CartService {
       }
     }
     
-    // Si l'item n'existe pas, l'ajouter
+    // Sil pa egziste kreyel
     if (!itemFound) {
       cartItems.add(newItem);
     }
     
-    // Sauvegarder le panier mis à jour
+    //save paye a
     cart = cartItems.map((item) => jsonEncode(item.toJson())).toList();
     await prefs.setStringList(_cartKey, cart);
   }
 
-  // ========== RÉCUPÉRER LE PANIER ==========
+ 
   
-  /// Récupérer tous les items du panier
+  /// Rekipere tt bgy ki nn panye a
   static Future<List<CartItem>> getCartItems() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> cart = prefs.getStringList(_cartKey) ?? [];
     return cart.map((item) => CartItem.fromJson(jsonDecode(item))).toList();
   }
 
-  /// Récupérer les produits simples uniquement (pour compatibilité)
+  /// Rekipre pwodui senp yo pou plis lwil poul
   static Future<List<Product>> getProducts() async {
     final cartItems = await getCartItems();
     return cartItems
@@ -76,9 +76,9 @@ class CartService {
         .toList();
   }
 
-  // ========== MODIFIER LE PANIER ==========
+ 
   
-  /// Retirer un item du panier par index
+  /// Retire yon bgy nn panye a
   static Future<void> removeItem(int index) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> cart = prefs.getStringList(_cartKey) ?? [];
@@ -88,12 +88,12 @@ class CartService {
     }
   }
 
-  /// Retirer un produit (ancienne méthode pour compatibilité)
+  /// Retire yon pwodui ansyen
   static Future<void> removeProduct(int index) async {
     await removeItem(index);
   }
 
-  /// Mettre à jour la quantité d'un item
+  ///  update kanite pri pwodui nn panye a
   static Future<void> updateQuantity(int index, int newQuantity) async {
     if (newQuantity <= 0) {
       await removeItem(index);
@@ -111,21 +111,21 @@ class CartService {
     }
   }
 
-  /// Vider le panier
+  /// Vide sak nn panye a
   static Future<void> clearCart() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_cartKey);
   }
 
-  // ========== CALCULS ==========
+ 
   
-  /// Calculer le total du panier
+  /// kalkile prix total bgy ki nn panye a
   static Future<double> calculateCartTotal() async {
     final cartItems = await getCartItems();
     return cartItems.fold<double>(0.0, (total, item) => total + item.getTotalPrice());
   }
 
-  /// Calculer le total (ancienne méthode pour compatibilité)
+ 
   static double calculateTotal(List<Product> products) {
     return products.fold(0, (total, product) {
       final priceStr = product.price.replaceAll('\$', '').replaceAll(',', '').trim();
@@ -133,13 +133,13 @@ class CartService {
     });
   }
 
-  /// Obtenir le nombre total d'items dans le panier
+  /// we nonb total bgy ki nn panye a
   static Future<int> getCartItemCount() async {
     final cartItems = await getCartItems();
     return cartItems.fold<int>(0, (total, item) => total + item.quantity);
   }
 
-  // ========== STATISTIQUES ==========
+  
   
   /// Obtenir les statistiques du panier
   static Future<Map<String, dynamic>> getCartStats() async {
@@ -175,15 +175,15 @@ class CartService {
     };
   }
 
-  // ========== VÉRIFICATIONS ==========
+ 
   
-  /// Vérifier si le panier est vide
+  /// gade si panier a vid anavan afiche
   static Future<bool> isCartEmpty() async {
     final cartItems = await getCartItems();
     return cartItems.isEmpty;
   }
 
-  /// Vérifier si un produit est déjà dans le panier
+  /// verifye si yon pwodui nn panye a deja
   static Future<bool> isProductInCart(Product product) async {
     final cartItems = await getCartItems();
     return cartItems.any((item) => 
@@ -192,7 +192,7 @@ class CartService {
     );
   }
 
-  /// Vérifier si un composant est déjà dans le panier
+  /// verifye si yon konpozan nn panye a deja
   static Future<bool> isComponentInCart(Component component) async {
     final cartItems = await getCartItems();
     return cartItems.any((item) => 

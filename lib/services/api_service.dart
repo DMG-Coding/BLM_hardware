@@ -6,21 +6,21 @@ import '../models/component.dart';
 import '../data/product_data.dart';
 
 class ApiService {
-  // Cache pour éviter de recharger les données
+  //pati kach pou evite rechajeman done yo 
   static List<Product>? _cachedProducts;
   static List<PCConfig>? _cachedPCConfigs;
   static List<Component>? _cachedComponents;
 
-  // ========== PRODUITS DEPUIS DONNÉES LOCALES ==========
   
-  /// Récupérer tous les produits depuis les données locales
+  
+  /// Rekipere tt pwodui depi lokal
   static Future<List<Product>> fetchProducts() async {
     if (_cachedProducts != null) {
       return _cachedProducts!;
     }
 
     try {
-      // UTILISER LES DONNÉES LOCALES au lieu de DummyJSON
+      // la nou fh an itilize donne lokal yo nn plas done JSON yo
       _cachedProducts = ProductData.getLocalProducts();
       return _cachedProducts!;
     } catch (e) {
@@ -29,12 +29,12 @@ class ApiService {
     }
   }
 
-  /// Récupérer les produits par catégorie
+  /// Rekipre pwodui yo p kategori
   static Future<List<Product>> fetchProductsByCategory(String category) async {
     try {
       final allProducts = await fetchProducts();
       
-      // Filtrer par catégorie
+      // epi filtre yo
       return allProducts.where((product) => 
         product.category.toLowerCase() == category.toLowerCase()
       ).toList();
@@ -44,7 +44,7 @@ class ApiService {
     }
   }
 
-  /// Récupérer les catégories disponibles
+  /// Rekipere kategori ki disponib yo
   static Future<List<String>> fetchCategories() async {
     try {
       return ProductData.categories
@@ -58,14 +58,14 @@ class ApiService {
 
   // ========== PC CONFIGURABLES DEPUIS JSON LOCAL ==========
   
-  /// Récupérer les PC configurables depuis le fichier JSON local
+  
   static Future<List<PCConfig>> fetchConfigurablePCs() async {
     if (_cachedPCConfigs != null) {
       return _cachedPCConfigs!;
     }
 
     try {
-      // Charger le fichier JSON depuis les assets
+      // load fichye JSon nn depi lokal
       final String jsonString = await rootBundle.loadString(
         'assets/data/configurable_pcs.json',
       );
@@ -84,7 +84,7 @@ class ApiService {
     }
   }
 
-  /// Récupérer un PC configurable par ID
+  /// Rekipre yon PC ke itilizate a ka konfigire avek ID an
   static Future<PCConfig?> fetchPCConfigById(String id) async {
     final pcs = await fetchConfigurablePCs();
     try {
@@ -96,20 +96,19 @@ class ApiService {
 
   // ========== COMPOSANTS INDIVIDUELS ==========
   
-  /// Récupérer tous les composants individuels
-  /// NOUVELLE VERSION : Charge depuis product_data.dart et convertit en Component
+  
   static Future<List<Component>> fetchComponents() async {
     if (_cachedComponents != null) {
       return _cachedComponents!;
     }
 
     try {
-      // CHARGER LES COMPOSANTS DEPUIS PRODUCT_DATA.DART
+      // fel pran done yo depi PRODUCT_DATA.DART
       final componentProducts = ProductData.getComponents();
       
-      // CONVERTIR Product → Component
+      
       _cachedComponents = componentProducts.map((product) {
-        // Déterminer le type de composant
+        // Detemine nn klas components lan
         String type = _detectComponentType(product.name, product.description);
         
         // Extraire le prix numérique
@@ -135,12 +134,12 @@ class ApiService {
     }
   }
 
-  /// Détecter le type de composant à partir du nom et de la description
+  /// we or kapab detekste composant a led de pri ak deskripsyon
   static String _detectComponentType(String name, String description) {
     final nameLower = name.toLowerCase();
     final descLower = description.toLowerCase();
     
-    // CPU
+    
     if (nameLower.contains('ryzen') || 
         nameLower.contains('intel') || 
         nameLower.contains('core') ||
@@ -151,7 +150,7 @@ class ApiService {
       return 'cpu';
     }
     
-    // GPU
+    
     if (nameLower.contains('rtx') || 
         nameLower.contains('radeon') || 
         nameLower.contains('geforce') ||
@@ -161,7 +160,7 @@ class ApiService {
       return 'gpu';
     }
     
-    // RAM
+   
     if (nameLower.contains('ddr') || 
         descLower.contains('ram') ||
         nameLower.contains('memory') ||
@@ -170,7 +169,7 @@ class ApiService {
       return 'ram';
     }
     
-    // Storage
+    
     if (descLower.contains('ssd') || 
         descLower.contains('nvme') ||
         (nameLower.contains('samsung') && descLower.contains('pro')) ||
@@ -179,7 +178,7 @@ class ApiService {
       return 'storage';
     }
     
-    // Motherboard
+    
     if ((nameLower.contains('asus') || 
          nameLower.contains('msi') || 
          nameLower.contains('gigabyte')) && 
@@ -192,7 +191,7 @@ class ApiService {
       return 'motherboard';
     }
     
-    // PSU (Alimentation)
+    
     if (descLower.contains('w,') || 
         descLower.contains('watt') || 
         descLower.contains('titanium') ||
@@ -201,7 +200,7 @@ class ApiService {
       return 'psu';
     }
     
-    // Case (Boîtier)
+    
     if (nameLower.contains('lian li') || 
         nameLower.contains('cooler master') ||
         nameLower.contains('fractal') ||
@@ -211,7 +210,7 @@ class ApiService {
       return 'case';
     }
     
-    // Cooling
+    
     if (nameLower.contains('noctua') || 
         nameLower.contains('deepcool') ||
         nameLower.contains('arctic') ||
@@ -221,7 +220,7 @@ class ApiService {
       return 'cooling';
     }
     
-    // Défaut : CPU si on ne sait pas
+    
     return 'cpu';
   }
 
@@ -231,14 +230,12 @@ class ApiService {
     return components.where((c) => c.type.toLowerCase() == type.toLowerCase()).toList();
   }
 
-  // ========== DONNÉES DE SECOURS ==========
-  
-  /// Produits de secours en cas d'erreur
+  // powodui kreye an ka sekou or si yo pa vle load si ta gn mesaj ere or ere
   static List<Product> _getFallbackProducts() {
     return ProductData.getLocalProducts().take(10).toList();
   }
 
-  /// Catégories de secours
+  /// pati kategori a
   static List<String> _getFallbackCategories() {
     return [
       'Téléphones',
@@ -249,9 +246,9 @@ class ApiService {
     ];
   }
 
-  // ========== RECHERCHE ==========
+  // pati RECHERCHE kote kapab cheche pa non
   
-  /// Rechercher des produits par nom
+  
   static Future<List<Product>> searchProducts(String query) async {
     try {
       final allProducts = await fetchProducts();
@@ -268,9 +265,7 @@ class ApiService {
     }
   }
 
-  // ========== UTILITAIRES ==========
   
-  /// Vider le cache
   static void clearCache() {
     _cachedProducts = null;
     _cachedPCConfigs = null;

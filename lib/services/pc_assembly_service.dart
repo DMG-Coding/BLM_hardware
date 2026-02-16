@@ -1,9 +1,9 @@
 import '../models/cart_item.dart';
 import '../models/component.dart';
 
-/// Service pour gérer la logique d'assemblage PC 3D
+
 class PCAssemblyService {
-  /// Types de composants nécessaires pour un PC complet
+  
   static const List<String> essentialComponentTypes = [
     'cpu',
     'gpu',
@@ -19,27 +19,27 @@ class PCAssemblyService {
     'cooling',
   ];
   
-  /// Vérifier si le panier contient assez de composants pour activer la vue 3D
+  /// we si panye gn minimum 3 konpoze pou bouton an akstive
   static bool canShowPC3D(List<CartItem> cartItems) {
-    // Récupérer uniquement les composants
+    
     final components = cartItems
         .where((item) => item.type == CartItemType.component)
         .toList();
     
     if (components.isEmpty) return false;
     
-    // Compter les types de composants uniques
+    // konte konbyen konpozan ki gn pou we si boutton 3D a ka afiche
     final componentTypes = components
         .map((item) => item.component?.type.toLowerCase())
         .where((type) => type != null)
         .toSet();
     
-    // Il faut au moins 3 composants différents pour activer la vue 3D
-    // Par exemple: CPU + GPU + RAM ou CPU + Motherboard + Storage
+    // fh an kelke sot fow gn pou pi piti 3 konpozan poul k bay yon previzyon 3D lew pral achte an
+    
     return componentTypes.length >= 3;
   }
   
-  /// Obtenir les composants PC du panier
+  /// gn konpozan PC nn panye an
   static List<Component> getPCComponents(List<CartItem> cartItems) {
     return cartItems
         .where((item) => item.type == CartItemType.component)
@@ -49,16 +49,16 @@ class PCAssemblyService {
         .toList();
   }
   
-  /// Vérifier si on a tous les composants essentiels
+  /// Verifye si gn tt konpozan esasyel yo pou PC an
   static bool hasCompletePC(List<CartItem> cartItems) {
     final components = getPCComponents(cartItems);
     final types = components.map((c) => c.type.toLowerCase()).toSet();
     
-    // Vérifier qu'on a tous les composants essentiels
+    
     return essentialComponentTypes.every((type) => types.contains(type));
   }
   
-  /// Obtenir le niveau de complétude du PC (0.0 à 1.0)
+  
   static double getCompletionLevel(List<CartItem> cartItems) {
     final components = getPCComponents(cartItems);
     final types = components.map((c) => c.type.toLowerCase()).toSet();
@@ -70,7 +70,7 @@ class PCAssemblyService {
     return essentialCount / essentialComponentTypes.length;
   }
   
-  /// Obtenir les composants manquants
+  /// jwenn konpozan manke yo
   static List<String> getMissingComponents(List<CartItem> cartItems) {
     final components = getPCComponents(cartItems);
     final types = components.map((c) => c.type.toLowerCase()).toSet();
@@ -80,7 +80,7 @@ class PCAssemblyService {
         .toList();
   }
   
-  /// Obtenir un message informatif sur l'état du PC
+  /// bay mesaj sou eta PC a
   static String getAssemblyMessage(List<CartItem> cartItems) {
     final components = getPCComponents(cartItems);
     
@@ -107,7 +107,7 @@ class PCAssemblyService {
     return "Voir l'assemblage 3D de votre configuration";
   }
   
-  /// Obtenir le nom d'affichage d'un composant
+  /// pou kapab gnyn nom konpozan ki afiche an
   static String _getComponentDisplayName(String type) {
     switch (type.toLowerCase()) {
       case 'cpu': return 'Processeur';
@@ -127,13 +127,13 @@ class PCAssemblyService {
     final completion = getCompletionLevel(cartItems);
     
     if (completion >= 1.0) {
-      return 0xFF4CAF50; // Vert - Complet
+      return 0xFF4CAF50; 
     } else if (completion >= 0.6) {
-      return 0xFFFFC107; // Orange - Presque complet
+      return 0xFFFFC107; 
     } else if (completion >= 0.4) {
-      return 0xFF2196F3; // Bleu - En cours
+      return 0xFF2196F3; 
     } else {
-      return 0xFF9E9E9E; // Gris - Début
+      return 0xFF9E9E9E; 
     }
   }
 }

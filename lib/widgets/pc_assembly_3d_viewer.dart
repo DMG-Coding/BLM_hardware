@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import '../models/component.dart';
 
-/// VERSION FINALE OPTIMISÉE - Modèles légers + Timeout long + Mode Image
+
 class PCAssembly3DViewer extends StatefulWidget {
   final List<Component> components;
 
@@ -22,7 +22,7 @@ class _PCAssembly3DViewerState extends State<PCAssembly3DViewer>
   
   late AnimationController _rotationController;
   
-  // Modèles 3D LÉGERS qui chargent rapidement
+  // Model 3D ki load depi sou github
   final List<Map<String, String>> _models = [
     {
       'url': 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Box/glTF/Box.gltf',
@@ -46,7 +46,7 @@ class _PCAssembly3DViewerState extends State<PCAssembly3DViewer>
       vsync: this,
     )..repeat();
     
-    // Timeout LONG pour donner le temps de charger
+    // me te yon ti jan long le a poul gade si imaj la dispo sou github navanl load previzyon 3D a
     Future.delayed(Duration(seconds: 15), () {
       if (mounted) {
         setState(() {

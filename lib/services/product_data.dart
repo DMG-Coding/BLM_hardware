@@ -1,7 +1,7 @@
 import '../models/product.dart';
 
 class ProductData {
-  // LAPTOPS (40 laptops)
+  
   static final List<Product> laptops = [
     // MacBook
     Product(name: 'MacBook Pro M3 Max 16"', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400', price: '\$3,499', description: 'M3 Max, 48GB RAM, 1TB SSD, 16" Liquid Retina XDR', category: 'Laptops'),
@@ -63,7 +63,7 @@ class ProductData {
     Product(name: 'Lenovo ThinkPad X1 Carbon', image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400', price: '\$1,899', description: 'Intel i7-1365U, 32GB RAM, 1TB SSD, Business', category: 'Laptops'),
   ];
 
-  // SMARTPHONES (40 téléphones)
+  
   static final List<Product> smartphones = [
     // iPhone
     Product(name: 'iPhone 15 Pro Max', image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400', price: '\$1,199', description: '256GB, Titanium Blue, A17 Pro chip, USB-C', category: 'Smartphones'),
@@ -129,7 +129,7 @@ class ProductData {
   
   ];
 
-  // COMPOSANTS PC (40 composants)
+  
   static final List<Product> components = [
     // CPU AMD
     Product(name: 'AMD Ryzen 9 9800X3D', image: 'https://th.bing.com/th/id/OIP.wxbA6AZG9uOualTOgmHODgHaE8?w=252&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3', price: '\$499', description: '8-Core, 16-Thread, 5.2GHz, 96MB Cache, 3D V-Cache', category: 'Components'),
@@ -164,19 +164,19 @@ class ProductData {
     Product(name: 'MSI MEG X670E Godlike', image: 'https://tse2.mm.bing.net/th/id/OIP.MEx4pD_A_JxLYr3ZE43WJwHaHa?pid=ImgDet&w=181&h=181&c=7&dpr=1.5&o=7&rm=3', price: '\$799', description: 'X670E, Extreme EATX, 10GbE, OC champion', category: 'Components'),
     
     
-    // PC Cases (Mini-ITX, Mid-Tower, Full-Tower)
+    // PC Cases ou di mwens bwat PC an
     Product(name: 'Lian Li A4-H2O', image: 'https://tse4.mm.bing.net/th/id/OIP.45cx5ZvPnGaDVSEWzycMdAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3', price: '\$149', description: 'Mini-ITX, 11L, AIO support, Compact gaming', category: 'Components'),
     Product(name: 'Cooler Master NR200P', image: 'https://tse1.mm.bing.net/th/id/OIP.qHVBrKw738IwlPkAf1qoUAHaHa?pid=ImgDet&w=181&h=181&c=7&dpr=1.5&o=7&rm=3', price: '\$99', description: 'Mini-ITX, 18L, Tempered glass, Best ITX', category: 'Components'),
     Product(name: 'Lian Li O11 Dynamic EVO', image: 'https://tse4.mm.bing.net/th/id/OIP.6E5bdPj7EczFhc7KF5EvugHaK9?rs=1&pid=ImgDetMain&o=7&rm=3', price: '\$179', description: 'Mid-Tower, Dual chamber, Showcase design', category: 'Components'),
     
     
-    // CPU Coolers (Air)
+    // CPU Coolers 
     Product(name: 'Noctua NH-D15', image: 'https://tse1.mm.bing.net/th/id/OIP.Oz72oIVS4ksLKObTsm02QgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3', price: '\$109', description: 'Dual tower, 140mm fans, Best air cooler', category: 'Components'),
     Product(name: 'DeepCool Assassin IV', image: 'https://th.bing.com/th/id/OIP.tb5FCTUWuaHYGSDIKJkL_AHaHa?w=228&h=180&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3', price: '\$89', description: 'Dual tower, 140mm fans, High performance', category: 'Components'),
     
   ];
 
-  // ACCESSOIRES
+  
   static final List<Product> accessories = [
     Product(
       name: 'Logitech MX Master 3S',
@@ -194,7 +194,7 @@ class ProductData {
     ),
   ];
 
-  // PC COMPLETS (15 PC Gaming et Bureau)
+  // PC COMPLETS 
   static final List<Product> pcComplets = [
     Product(
       name: 'Corsair Vengeance i7600',
@@ -297,7 +297,7 @@ class ProductData {
     ),
   ];
 
-  // Tous les produits
+  // tout produits yo
   static List<Product> get allProducts => [
         ...laptops,
         ...smartphones,
@@ -306,7 +306,7 @@ class ProductData {
         ...pcComplets,
       ];
 
-  // Produits par catégorie
+  // pwoduia pa kategori
   static List<Product> getByCategory(String category) {
     switch (category.toLowerCase()) {
       case 'laptops':

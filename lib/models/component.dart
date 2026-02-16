@@ -1,12 +1,11 @@
-// Modèle pour les composants PC individuels
 class Component {
   final String id;
   final String name;
-  final String type; // 'cpu', 'gpu', 'ram', 'storage', 'motherboard', 'psu', 'case', 'cooling'
+  final String type; 
   final double price;
   final String image;
   final String description;
-  final Map<String, dynamic> specs; // Spécifications techniques
+  final Map<String, dynamic> specs; 
 
   Component({
     required this.id,
@@ -18,7 +17,7 @@ class Component {
     this.specs = const {},
   });
 
-  // Conversion depuis JSON
+  // konvesyon depi fichye JSON nn
   factory Component.fromJson(Map<String, dynamic> json) {
     return Component(
       id: json['id']?.toString() ?? '',
@@ -31,7 +30,7 @@ class Component {
     );
   }
 
-  // Conversion vers JSON
+  // konvesyon bay fichye JSON nn
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
@@ -42,7 +41,7 @@ class Component {
         'specs': specs,
       };
 
-  // Copier avec modifications
+  // kopyel ak modifikasyon
   Component copyWith({
     String? id,
     String? name,
@@ -63,7 +62,7 @@ class Component {
     );
   }
 
-  // Obtenir le nom du type en français
+  
   String getTypeDisplayName() {
     switch (type.toLowerCase()) {
       case 'cpu':

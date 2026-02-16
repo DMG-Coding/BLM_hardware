@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Dark theme colors
+  // pou koule nwa
   static const darkBg = Color(0xFF1a1a2e);
   static const darkCard = Color(0xFF16213e);
   static const darkAccent = Color(0xFF0f3460);
   
-  // Accent colors
+  // kole aksan
   static const cyan = Color(0xFF00d4ff);
   static const blue = Color(0xFF0066ff);
   static const purple = Color(0xFF7f00ff);
   
-  // Gradients
+  // koule Gradients
   static const bgGradient = [darkBg, darkCard, darkAccent];
   static const accentGradient = [cyan, blue, purple];
 }

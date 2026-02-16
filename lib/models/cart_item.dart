@@ -4,9 +4,9 @@ import 'component.dart';
 
 // Type d'article dans le panier
 enum CartItemType {
-  simpleProduct, // Produit simple (téléphone, chargeur, etc.)
-  configurablePC, // PC configurable
-  component, // Composant individuel
+  simpleProduct, 
+  configurablePC, 
+  component, 
 }
 
 // Modèle pour un article dans le panier
@@ -14,13 +14,13 @@ class CartItem {
   final String id;
   final CartItemType type;
   
-  // Pour les produits simples
+  
   final Product? product;
   
-  // Pour les PC configurables
+  
   final PCConfig? pcConfig;
   
-  // Pour les composants individuels
+  
   final Component? component;
   
   final int quantity;
@@ -36,7 +36,7 @@ class CartItem {
     DateTime? addedAt,
   }) : addedAt = addedAt ?? DateTime.now();
 
-  // Constructeur pour produit simple
+  // Constructeur pour les  produit 
   factory CartItem.fromProduct(Product product, {int quantity = 1}) {
     return CartItem(
       id: 'prod_${product.name}_${DateTime.now().millisecondsSinceEpoch}',
@@ -46,7 +46,7 @@ class CartItem {
     );
   }
 
-  // Constructeur pour PC configurable
+  
   factory CartItem.fromPCConfig(PCConfig pcConfig, {int quantity = 1}) {
     return CartItem(
       id: 'pc_${pcConfig.id}_${DateTime.now().millisecondsSinceEpoch}',
@@ -56,7 +56,7 @@ class CartItem {
     );
   }
 
-  // Constructeur pour composant individuel
+  
   factory CartItem.fromComponent(Component component, {int quantity = 1}) {
     return CartItem(
       id: 'comp_${component.id}_${DateTime.now().millisecondsSinceEpoch}',
@@ -66,7 +66,7 @@ class CartItem {
     );
   }
 
-  // Obtenir le nom de l'article
+  
   String getName() {
     switch (type) {
       case CartItemType.simpleProduct:
@@ -78,7 +78,7 @@ class CartItem {
     }
   }
 
-  // Obtenir l'image de l'article
+  
   String getImage() {
     switch (type) {
       case CartItemType.simpleProduct:
@@ -90,7 +90,7 @@ class CartItem {
     }
   }
 
-  // Obtenir le prix unitaire
+  
   double getUnitPrice() {
     switch (type) {
       case CartItemType.simpleProduct:
@@ -104,12 +104,12 @@ class CartItem {
     }
   }
 
-  // Obtenir le prix total (unitaire × quantité)
+  
   double getTotalPrice() {
     return getUnitPrice() * quantity;
   }
 
-  // Obtenir la description/configuration
+ 
   String getDescription() {
     switch (type) {
       case CartItemType.simpleProduct:
@@ -121,7 +121,7 @@ class CartItem {
     }
   }
 
-  // Obtenir la catégorie
+  
   String getCategory() {
     switch (type) {
       case CartItemType.simpleProduct:
@@ -133,7 +133,7 @@ class CartItem {
     }
   }
 
-  // Conversion vers JSON pour le stockage
+  // Conversion vers JSON le nap itilize DjimmyJson nn ti mesye
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -146,7 +146,7 @@ class CartItem {
     };
   }
 
-  // Création depuis JSON
+  // pati kreyasyon depi JSON
   factory CartItem.fromJson(Map<String, dynamic> json) {
     CartItemType type;
     switch (json['type']) {
@@ -176,7 +176,7 @@ class CartItem {
     );
   }
 
-  // Copier avec modifications
+  // kotel rele poul kopye modifications
   CartItem copyWith({
     String? id,
     CartItemType? type,
@@ -197,7 +197,7 @@ class CartItem {
     );
   }
 
-  // Vérifier si deux items sont identiques (même produit/config)
+  // verifye si 2 bgy menm type
   bool isSameItem(CartItem other) {
     if (type != other.type) return false;
     
