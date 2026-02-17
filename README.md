@@ -81,3 +81,4 @@
 
 # Nap gen yon videyo ki ap disponib pou mye esplike fonksyonnman APK nou an
 # klike sou link saa pou w mye konprann plateforme nou an
+https://drive.google.com/drive/folders/1w9n-cVN1TqDi6aM8xgoMG3SIDJrfVkfZ?usp=drive_link
